@@ -35,6 +35,24 @@ def test_successful_login(playwright: Playwright) -> None :
     expect(cart_badge).to_be_hidden()
     print("Item Remove from the cart")
 
+    #4 Cart Checkout
+    print("\n-- 4. Cart Checkout Test")
+    page.locator("#add-to-cart-sauce-labs-bike-light").click()
+    page.locator(".shopping_cart_link").click()
+    expect(page).to_have_url("https://www.saucedemo.com/cart.html")
+    expect(page.locator(".cart_item")).to_have_count(1)
+    print("Cart Verification Successful")
+
+    #5 Search/Filter
+    print("\n-- 5. Search/Filter Test")
+    page.goto("https://www.saucedemo.com/inventory.html")
+    page.locator(".product_sort_container").select_option("za")
+    first_item = page.locator(".inventory_item_name").first
+    expect(first_item).to_have_text("Test.allTheThings() T-Shirt (Red)")
+    print("Filter (Z-A) works correctly ")
+
+
+
 
 
 
